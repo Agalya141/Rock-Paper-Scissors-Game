@@ -1,45 +1,61 @@
 let computerMove = '';
 let result = '';
+let score = JSON.parse(localStorage.getItem('score')) || {
+    wins: 0,
+    loses: 0,
+    ties: 0
+};
+
 function playGame(playerMove) {
     if (playerMove === 'Rock') {
         pickComputerMove();
         if (computerMove === 'Rock') {
-            result = 'Tie. '
+            result = 'Tie.'
         }
         else if (computerMove === 'Paper') {
             result = 'You lose.'
         }
         else {
-            result = 'You win. '
+            result = 'You Win.'
         }
-        alert(`You Picked ${playerMove}. Computer Picked ${computerMove}. ${result}`);
     }
     else if (playerMove === 'Paper') {
         pickComputerMove();
         if (computerMove === 'Rock') {
-            result = 'You Win. '
+            result = 'You Win.'
         }
         else if (computerMove === 'Paper') {
             result = 'Tie.'
         }
         else {
-            result = 'You lose. '
+            result = 'You lose.'
         }
-        alert(`You Picked ${playerMove}. Computer Picked ${computerMove}. ${result}`);
     }
     else {
         pickComputerMove();
         if (computerMove === 'Rock') {
-            result = 'You lose. '
+            result = 'You lose.'
         }
         else if (computerMove === 'Paper') {
-            result = 'You Win'
+            result = 'You Win.'
         }
         else {
-            result = 'Tie. '
+            result = 'Tie.'
         }
-        alert(`You Picked ${playerMove}. Computer Picked ${computerMove}. ${result}`);
     }
+    if (result === 'You Win.') {
+        score.wins += 1;
+    }
+    else if (result === 'You lose.') {
+        score.loses += 1
+    }
+    else {
+        score.ties += 1
+    }
+    localStorage.setItem('score', JSON.stringify(score));
+    alert(`You Picked ${playerMove}. Computer Picked ${computerMove}. ${result}
+Wins: ${score.wins} , Loses: ${score.loses} , Ties: ${score.ties}`);
+
 }
 function pickComputerMove() {
     const randomNumber = Math.random();
@@ -47,10 +63,10 @@ function pickComputerMove() {
     if (randomNumber >= 0 && randomNumber < 1 / 3) {
         computerMove = `Rock`
     }
-    else if (randomNumber > 1 / 3 && randomNumber < 2 / 3) {
+    else if (randomNumber >= 1 / 3 && randomNumber < 2 / 3) {
         computerMove = `Paper`
     }
-    else if (randomNumber > 2 / 3 && randomNumber < 1) {
+    else if (randomNumber >= 2 / 3 && randomNumber < 1) {
         computerMove = `Scissors`
     }
     console.log(computerMove);

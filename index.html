@@ -12,6 +12,11 @@
     <button id="rock" onclick="playGame('Rock')"> Rock</button>
     <button id="paper" onclick="playGame('Paper')">Paper</button>
     <button id="scissors" onclick="playGame('Scissors')">Scissors</button>
+    <button onclick="
+    score.wins = 0;
+    score.loses = 0;
+    score.ties = 0;
+    localStorage.removeItem('score')">Reset Button</button>
     <script src="script.js">
     </script>
 </body>
