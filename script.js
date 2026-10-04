@@ -6,6 +6,8 @@ let score = JSON.parse(localStorage.getItem('score')) || {
     ties: 0
 };
 
+updateScore();
+
 function playGame(playerMove) {
     if (playerMove === 'Rock') {
         pickComputerMove();
@@ -52,11 +54,25 @@ function playGame(playerMove) {
     else {
         score.ties += 1
     }
+
     localStorage.setItem('score', JSON.stringify(score));
-    alert(`You Picked ${playerMove}. Computer Picked ${computerMove}. ${result}
-Wins: ${score.wins} , Loses: ${score.loses} , Ties: ${score.ties}`);
+
+    updateScore(); 
+
+    document.querySelector('.js-result').innerHTML = result;
+
+    document.querySelector('.js-moves').innerHTML = `You ${playerMove} - ${computerMove} Computer`;
+    
+    
+}
+
+function updateScore() {
+    document.querySelector('.js-score')
+        .innerHTML = `Wins: ${score.wins} , Loses: ${score.loses} , Ties: ${score.ties}`;
 
 }
+
+
 function pickComputerMove() {
     const randomNumber = Math.random();
 
