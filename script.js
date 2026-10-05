@@ -4,7 +4,7 @@ let score = JSON.parse(localStorage.getItem('score')) || {
     wins: 0,
     loses: 0,
     ties: 0,
-   
+
 };
 
 
@@ -68,7 +68,7 @@ function playGame(playerMove) {
         <img src="images/${playerMove}-emoji.png" class="move-icon">
         <img src="images/${computerMove}-emoji.png" class="move-icon">
         Computer`;
-    
+
     if (result === 'You Win.') {
         document.querySelector('.streak').innerHTML = `${streak += 1} Wins in a row!`;
     }
@@ -104,7 +104,7 @@ function pickComputerMove() {
     return computerMove;
 }
 
-function resetScore(){
+function resetScore() {
     score.wins = 0;
     score.loses = 0;
     score.ties = 0;
