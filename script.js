@@ -3,9 +3,12 @@ let result = '';
 let score = JSON.parse(localStorage.getItem('score')) || {
     wins: 0,
     loses: 0,
-    ties: 0
+    ties: 0,
+   
 };
 
+
+let streak = 0;
 updateScore();
 
 function playGame(playerMove) {
@@ -57,18 +60,30 @@ function playGame(playerMove) {
 
     localStorage.setItem('score', JSON.stringify(score));
 
-    updateScore(); 
+    updateScore();
 
     document.querySelector('.js-result').innerHTML = result;
 
-    document.querySelector('.js-moves').innerHTML = `You ${playerMove} - ${computerMove} Computer`;
+    document.querySelector('.js-moves').innerHTML = ` You
+        <img src="images/${playerMove}-emoji.png" class="move-icon">
+        <img src="images/${computerMove}-emoji.png" class="move-icon">
+        Computer`;
     
-    
+    if (result === 'You Win.') {
+        document.querySelector('.streak').innerHTML = `${streak += 1} Wins in a row!`;
+    }
+    else if (result === 'You lose.') {
+        document.querySelector('.streak').innerHTML = `You lost ! Streak reset.`;
+        streak = 0;
+    }
+    else {
+        document.querySelector('.streak').innerHTML = `Tie ! Streak reset.`;
+        streak = 0;
+    }
 }
-
 function updateScore() {
     document.querySelector('.js-score')
-        .innerHTML = `Wins: ${score.wins} , Loses: ${score.loses} , Ties: ${score.ties}`;
+        .innerHTML = `Wins: ${score.wins} , Losses: ${score.loses} , Ties: ${score.ties}`;
 
 }
 
@@ -87,4 +102,14 @@ function pickComputerMove() {
     }
     console.log(computerMove);
     return computerMove;
+}
+
+function resetScore(){
+    score.wins = 0;
+    score.loses = 0;
+    score.ties = 0;
+    localStorage.removeItem('score');
+    streak = 0;
+    document.querySelector('.streak').innerHTML = '';
+    updateScore();
 }
